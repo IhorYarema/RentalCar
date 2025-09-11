@@ -2,12 +2,46 @@
   background-image: url("../../assets/HomeBackground.jpg");
   background-size: cover;
   background-position: center;
-  width: 100%;
+  background-repeat: no-repeat;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 60px;
+  align-items: center;
 }
 
 @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .hero_section {
     background-image: url("../../assets/HomeBackground@2x.jpg");
   }
+}
+
+.title {
+  margin-bottom: 16px;
+  font-size: 60px;
+  font-weight: 700;
+  line-height: 72px;
+  color: rgba(255, 255, 255, 1);
+}
+
+.lower_title {
+  margin-bottom: 40px;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  color: rgba(255, 255, 255, 1);
+}
+
+.button {
+  width: 276px;
+  height: auto;
+  padding: 12px 88px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  background-color: rgba(52, 112, 255, 1);
+  border: none;
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 1);
 }

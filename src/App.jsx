@@ -9,18 +9,18 @@ const CarViewPage = lazy(() => import("./pages/CarViewPage/CarViewPage"));
 function App() {
   return (
     <div className={css.appWrapper}>
-      <Header />
+      {/* <Header /> */}
       <div className={css.pageContent}>
-        <Suspense fallback={<Loader />}>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/catalog" element={<CatalogPage />} />
-            <Route path="/catalog/:id" element={<CarViewPage />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
+        {/* <Suspense fallback={<Loader />}> */}
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/catalog" element={<CatalogPage />} />
+          <Route path="/catalog/:id" element={<CarViewPage />} />
+          {/* <Route path="*" element={<NotFound />} /> */}
+        </Routes>
+        {/* </Suspense> */}
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
