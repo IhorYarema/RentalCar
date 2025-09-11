@@ -1,0 +1,30 @@
+.header {
+  background-color: rgba(242, 244, 247, 1);
+  position: relative;
+  padding: 24px 120px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 1);
+}
+
+.logoIcon {
+  width: 104px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.link {
+  color: rgba(16, 24, 40, 1);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.link.active {
+  color: rgba(11, 68, 205, 1);
+}
+
+.navGroup {
+  display: flex;
+  gap: 32px;
+}
