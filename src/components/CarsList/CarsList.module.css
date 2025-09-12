@@ -1,0 +1,11 @@
+.list {
+  display: flex;
+  gap: 32px;
+  row-gap: 48px;
+  flex-wrap: wrap;
+  list-style-type: none;
+}
+
+.car {
+  width: calc(100% - (32 * 4));
+}

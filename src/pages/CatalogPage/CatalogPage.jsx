@@ -1,4 +1,4 @@
-import css from "./HomePage.module.css";
+import css from "./CatalogPage.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
@@ -8,6 +8,8 @@ import {
   selectIsLoading,
 } from "../../redux/cars/selectors";
 import { fetchCars } from "../../redux/cars/carsSlise";
+// import Filters from "../../components/Filters/Filters";
+import CarsList from "../../components/CarsList/CarsList";
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -29,10 +31,8 @@ export default function HomePage() {
 
   return (
     <section>
-      <Hero onSearch={handleSearch} />
-
       <div className={css.containerFilterRecList}>
-        <Filters />
+        {/* <Filters /> */}
 
         {!loader && (
           <CarsList
