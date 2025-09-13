@@ -7,8 +7,8 @@ import {
   selectTotalPages,
   selectIsLoading,
 } from "../../redux/cars/selectors";
-import { fetchCars } from "../../redux/cars/carsSlise";
-// import Filters from "../../components/Filters/Filters";
+import { fetchCars } from "../../redux/cars/carsSlice";
+import Filters from "../../components/Filters/Filters";
 import CarsList from "../../components/CarsList/CarsList";
 
 export default function HomePage() {
@@ -17,33 +17,29 @@ export default function HomePage() {
   const currentPage = useSelector(selectCurrentPage);
   const totalPages = useSelector(selectTotalPages);
   const loader = useSelector(selectIsLoading);
+  const filters = useSelector((state) => state.filters);
 
   useEffect(() => {
     dispatch(fetchCars({ page: 1, limit: 12 }));
   }, [dispatch]);
 
-  //   const handleSearch = (query) => {
-  //     // dispatch(setTitleFilter(query));
-  //     // dispatch(fetchCars());
-  //   };
+  const handleSearch = () => {
+    dispatch(fetchCars({ page: 1, limit: 12, ...filters }));
+  };
 
   if (loader) return <p>Loading...</p>;
 
   return (
-    <section>
-      <div className={css.containerFilterRecList}>
-        {/* <Filters /> */}
+    <section className={css.catalogSec}>
+      <div className={css.container}>
+        <Filters onSearch={handleSearch} />
 
-        {!loader && (
-          <CarsList
-            cars={cars}
-            totalPages={totalPages}
-            currentPage={currentPage}
-            // nextPage={nextPage}
-            fetchCars={fetchCars}
-            // mode={"default"}
-          />
-        )}
+        <CarsList
+          cars={cars}
+          totalPages={totalPages}
+          currentPage={currentPage}
+          fetchCars={fetchCars}
+        />
       </div>
     </section>
   );

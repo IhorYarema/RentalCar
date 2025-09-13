@@ -1,0 +1,27 @@
+.btn {
+  text-align: center;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1px solid rgba(52, 112, 255, 1);
+  padding: 12px 38px;
+  width: 156px;
+  height: auto;
+  background-color: transparent;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(16, 24, 40, 1);
+  margin-top: 80px;
+  transition: border 0.3s;
+  white-space: nowrap;
+}
+
+.btn:hover,
+.button:focus {
+  border: 1px solid rgba(11, 68, 205, 1);
+}
+
+.container {
+  text-align: center;
+  align-items: center;
+}

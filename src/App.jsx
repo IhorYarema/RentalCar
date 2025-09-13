@@ -2,6 +2,9 @@ import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import css from "./App.module.css";
 import Header from "./components/Header/Header";
+import "@fontsource/manrope";
+import "@fontsource/manrope/500.css";
+import "@fontsource/manrope/600.css";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const CatalogPage = lazy(() => import("./pages/CatalogPage/CatalogPage"));

@@ -5,24 +5,33 @@ export const bookCarThunk = createAsyncThunk(
   "booking/bookCar",
   async ({ id, formData }, { rejectWithValue }) => {
     try {
-      return await bookCar(id, formData);
+      return await bookCar(id, formData); // тепер завжди успішно
     } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
+      return rejectWithValue(error.message || "Booking failed");
     }
   }
 );
 
+const initialState = {
+  formData: {
+    name: "",
+    email: "",
+    bookingDate: "",
+    comment: "",
+  },
+  success: false,
+  loading: false,
+  error: null,
+};
+
 const bookingSlice = createSlice({
   name: "booking",
-  initialState: {
-    success: false,
-    loading: false,
-    error: null,
-  },
+  initialState,
   reducers: {
     resetBooking: (state) => {
       state.success = false;
       state.error = null;
+      state.formData = initialState.formData;
     },
   },
   extraReducers: (builder) => {
@@ -32,9 +41,10 @@ const bookingSlice = createSlice({
         state.success = false;
         state.error = null;
       })
-      .addCase(bookCarThunk.fulfilled, (state) => {
+      .addCase(bookCarThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
+        state.formData = action.payload.booking;
       })
       .addCase(bookCarThunk.rejected, (state, action) => {
         state.loading = false;

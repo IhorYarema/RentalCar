@@ -1,0 +1,96 @@
+.form {
+  width: 640px;
+  height: 488px;
+  border: 1px solid rgba(218, 221, 225, 1);
+  padding: 32px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-sizing: border-box;
+}
+
+.titles {
+  display: flex;
+  flex-direction: column;
+}
+
+.formTitle {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+  margin-bottom: 8px;
+}
+
+.formText {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  color: rgba(141, 146, 154, 1);
+}
+
+.inputCont {
+  display: flex;
+  flex-direction: column;
+  width: 576px;
+  gap: 16px;
+  justify-content: center;
+}
+
+.inputDiv {
+  width: 576px;
+  height: 48px;
+}
+
+.input {
+  box-sizing: border-box;
+  background-color: rgba(247, 247, 247, 1);
+  border: none;
+  border-radius: 12px;
+  padding: 12px 20px;
+  width: 100%;
+  height: 48px;
+  color: rgba(141, 146, 154, 1);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.last-inputDiv {
+  height: 88px;
+}
+
+.last-input {
+  padding-bottom: 56px;
+  height: 88px;
+}
+
+.input::placeholder {
+  color: rgba(141, 146, 154, 1);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+}
+.btnDiv {
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  background-color: rgba(52, 112, 255, 1);
+  border: none;
+  border-radius: 12px;
+  width: 156px;
+  padding: 12px 58px;
+  height: 44px;
+  color: rgba(255, 255, 255, 1);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  transition: background-color 0.3s;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: rgba(11, 68, 205, 1);
+}

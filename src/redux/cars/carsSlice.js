@@ -3,22 +3,34 @@ import { getCars, getCarById } from "../../api/carsApi";
 
 export const fetchCars = createAsyncThunk(
   "cars/fetchCars",
-  async (filters, { rejectWithValue }) => {
+  async (
+    { page = 1, limit = 12, brand, price, mileageFrom, mileageTo },
+    thunkAPI
+  ) => {
     try {
-      return await getCars(filters);
+      const response = await getCars({
+        page,
+        limit,
+        brand,
+        price,
+        mileageFrom,
+        mileageTo,
+      });
+      return { cars: response.cars, totalPages: response.totalPages, page };
     } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
 export const fetchCarById = createAsyncThunk(
   "cars/fetchCarById",
-  async (id, { rejectWithValue }) => {
+  async (id, thunkAPI) => {
     try {
-      return await getCarById(id);
+      const response = await getCarById(id);
+      return response;
     } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -26,17 +38,18 @@ export const fetchCarById = createAsyncThunk(
 const carsSlice = createSlice({
   name: "cars",
   initialState: {
-    list: [],
-    currentCar: null,
-    page: 1,
-    totalPages: 1,
+    items: [],
+    currentPage: 1,
+    totalPages: 0,
     loading: false,
     error: null,
+    currentCar: null,
   },
   reducers: {
-    resetCars: (state) => {
-      state.list = [];
-      state.page = 1;
+    resetCars(state) {
+      state.items = [];
+      state.currentPage = 1;
+      state.totalPages = 0;
     },
   },
   extraReducers: (builder) => {
@@ -47,19 +60,25 @@ const carsSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchCars.fulfilled, (state, action) => {
+        const { cars, totalPages, page } = action.payload;
+        if (page === 1) {
+          state.items = cars;
+        } else {
+          state.items = [...state.items, ...cars];
+        }
+        state.currentPage = page;
+        state.totalPages = totalPages;
         state.loading = false;
-        state.list = [...state.list, ...action.payload.cars];
-        state.totalPages = action.payload.totalPages;
       })
       .addCase(fetchCars.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
-
       // fetchCarById
       .addCase(fetchCarById.pending, (state) => {
         state.loading = true;
         state.error = null;
+        state.currentCar = null;
       })
       .addCase(fetchCarById.fulfilled, (state, action) => {
         state.loading = false;

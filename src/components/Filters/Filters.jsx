@@ -1,169 +1,83 @@
-// import css from "./Filters.module.css";
-// import { useDispatch, useSelector } from "react-redux";
-// import { useEffect } from "react";
-// import Select from "react-select";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setFilterField, fetchBrands } from "../../redux/filters/filtersSlice";
+import css from "./Filters.module.css";
 
-// const Filters = () => {
-//   const dispatch = useDispatch();
+const Filters = ({ onSearch }) => {
+  const dispatch = useDispatch();
+  const filters = useSelector((state) => state.filters);
+  const { brand, price, mileageFrom, mileageTo, brandsOptions, loadingBrands } =
+    filters;
 
-//   const brandsOptions = brands.map((brand) => ({
-//     value: brand.name,
-//     label: brand.name,
-//   }));
+  useEffect(() => {
+    dispatch(fetchBrands());
+  }, [dispatch]);
 
-//   const pricesOptions = categories.map((category) => ({
-//     value: category.name,
-//     label: category.name,
-//   }));
+  const handleChange = (field, value) => {
+    dispatch(setFilterField({ field, value }));
+  };
 
-//   //   const mileageOptions = brands.map((brand) => ({
-//   //     value: brand.name,
-//   //     label: brand.name,
-//   //   }));
+  return (
+    <div className={css.filters}>
+      {/* Бренд */}
+      <select
+        value={brand}
+        onChange={(e) => handleChange("brand", e.target.value)}
+        className={css.brandSel}
+        disabled={loadingBrands}
+      >
+        <option value="">Choose a brand</option>
+        {brandsOptions.map((b) => (
+          <option key={b} value={b}>
+            {b}
+          </option>
+        ))}
+      </select>
 
-//   const handleResetFilters = () => {
-//     dispatch(clearitems());
-//     dispatch(resetFilters());
-//     setSelectedCategory(null);
-//     setSelectedIngredients([]);
-//     dispatch(fetchRecipes());
-//     dispatch(setSearchQuery(""));
-//   };
+      {/* Цена */}
+      <select
+        value={price}
+        onChange={(e) => handleChange("price", e.target.value)}
+        className={css.priceSel}
+      >
+        <option value="">Choose a price</option>
+        {[30, 40, 50, 60, 70, 80].map((p) => (
+          <option key={p} value={p}>
+            {p}
+          </option>
+        ))}
+      </select>
 
-//   const onCategoryChange = (selectedOption) => {
-//     setSelectedCategory(selectedOption);
-//     dispatch(setCategoryFilter(selectedOption ? selectedOption.value : ""));
-//     dispatch(clearitems());
-//     dispatch(fetchRecipes());
-//   };
+      {/* Пробег */}
+      <div className={css.mil}>
+        {/* Поле "From" */}
+        <div className={css.inputWrapper}>
+          <span className={css.prefix}>From</span>
+          <input
+            type="number"
+            value={mileageFrom}
+            onChange={(e) => handleChange("mileageFrom", e.target.value)}
+            className={css.milInp}
+          />
+        </div>
 
-//   const onIngredientsChange = (selectedOptions) => {
-//     setSelectedIngredients(selectedOptions || []);
-//     const ingredientValues = selectedOptions
-//       ? selectedOptions.map((option) => option.value)
-//       : [];
-//     dispatch(setIngredientsFilter(ingredientValues));
-//     dispatch(clearitems());
-//     dispatch(fetchRecipes());
-//   };
+        {/* Поле "To" */}
+        <div className={css.inputWrapper}>
+          <span className={css.prefix}>To</span>
+          <input
+            type="number"
+            value={mileageTo}
+            onChange={(e) => handleChange("mileageTo", e.target.value)}
+            className={css.milInp}
+          />
+        </div>
+      </div>
 
-//   const toggleFilters = () => {
-//     setIsFilterOpen(!isFilterOpen);
-//   };
+      <button onClick={onSearch} className={css.btn}>
+        Search
+      </button>
+    </div>
+  );
+};
 
-//   useEffect(() => {
-//     const handleResize = () => {
-//       if (window.innerWidth >= 1440) setIsFilterOpen(false);
-//     };
-
-//     window.addEventListener("resize", handleResize);
-
-//     handleResize();
-
-//     return () => {
-//       window.removeEventListener("resize", handleResize);
-//     };
-//   }, []);
-
-//   const customStyles = {
-//     container: (provided) => ({
-//       ...provided,
-//       cursor: "pointer",
-//     }),
-//     control: (provided) => ({
-//       ...provided,
-//       cursor: "pointer",
-//     }),
-//     option: (provided, state) => ({
-//       ...provided,
-//       cursor: "pointer",
-//       backgroundColor: state.isSelected ? "#e6f0ff" : provided.backgroundColor,
-//     }),
-//     indicatorSeparator: () => ({
-//       display: "none",
-//     }),
-//   };
-
-//   return (
-//     <div className={css.filtersSection}>
-//       <h2 className={css.title}>
-//         {title ? `Search Results for “${title}”` : "Recipes"}
-//       </h2>
-//       <div className={css.filtersContainerWrapper}>
-//         <div className={css.filtersContainer}>
-//           {!loader && (
-//             <p className={css.recipesCount}>{recipesAmount} recipes</p>
-//           )}
-
-//           <button
-//             type="button"
-//             className={css.toggleBtn}
-//             onClick={toggleFilters}
-//           >
-//             Filters
-//             <svg className={css.filtersIcon}>
-//               {isFilterOpen ? (
-//                 <use href="/icons.svg#icon-close" />
-//               ) : (
-//                 <use href="/icons.svg#icon-filter" />
-//               )}
-//             </svg>
-//           </button>
-//         </div>
-
-//         <div
-//           className={`${css.filtersContent} ${
-//             isFilterOpen ? css.open : css.hidden
-//           }`}
-//         >
-//           <div className={css.selectContainer}>
-//             <Select
-//               components={animatedComponents}
-//               options={categoriesOptions}
-//               value={selectedCategory}
-//               onChange={onCategoryChange}
-//               placeholder="Category"
-//               isClearable
-//               styles={customStyles}
-//             />
-//           </div>
-
-//           <div className={css.selectContainer}>
-//             <Select
-//               components={animatedComponents}
-//               options={ingredientsOptions}
-//               value={selectedIngredients}
-//               onChange={onIngredientsChange}
-//               placeholder="Ingredient"
-//               isMulti
-//               styles={customStyles}
-//             />
-//           </div>
-//           <button
-//             type="button"
-//             onClick={handleResetFilters}
-//             className={css.resetButton}
-//           >
-//             Reset filters
-//           </button>
-//         </div>
-//       </div>
-//       {recipesAmount === 0 && !loader && (
-//         <div className={css.noRecipesContainer}>
-//           <h3 className={css.noRecipesTitle}>
-//             We’re sorry! We were not able to find a match.
-//           </h3>
-//           <button
-//             type="button"
-//             className={css.noRecipesResetBtn}
-//             onClick={handleResetFilters}
-//           >
-//             Reset search and filters
-//           </button>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Filters;
+export default Filters;

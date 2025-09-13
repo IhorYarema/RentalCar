@@ -1,0 +1,110 @@
+ul {
+  list-style-type: none;
+}
+
+.detailsCont {
+  padding: 104px 120px;
+  display: flex;
+  color: rgba(16, 24, 40, 1);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.imgAndBooking {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.img {
+  border-radius: 18px;
+  width: 640px;
+  height: 512px;
+}
+
+.carInfo {
+  display: flex;
+  flex-direction: column;
+  width: 488px;
+  margin-left: 72px;
+}
+
+.brandMark {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+}
+
+.markCont {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.idText {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  color: rgba(141, 146, 154, 1);
+}
+
+.locCont {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.locationIcon {
+  width: 16px;
+  height: 16px;
+  color: currentColor;
+}
+
+.checkIcon {
+  width: 16px;
+  height: 16px;
+  color: currentColor;
+  margin-right: 8px;
+}
+
+.mainUpperText {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.mainUpperText:not(:last-child) {
+  margin-right: 16px;
+}
+
+.price {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  color: rgba(52, 112, 255, 1);
+  margin-bottom: 32px;
+}
+
+.mainText {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lessInfo {
+  margin-top: 68px;
+  display: flex;
+  flex-direction: column;
+  gap: 110px;
+  height: 772px;
+}
+
+.rentTitle {
+  margin-bottom: 20px;
+}
+
+.rentList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

@@ -51,11 +51,18 @@
   color: rgba(52, 112, 255, 1);
 }
 
-.lessInfoBlock {
+/* .lessInfoBlock {
+} */
+
+.firstpart,
+.secondpart {
   display: flex;
   justify-content: flex-start;
   gap: 12px;
-  flex-wrap: wrap;
+}
+
+.firstpart {
+  margin-bottom: 4px;
 }
 
 .lessinfo {
@@ -66,11 +73,20 @@
   position: relative;
 }
 
-.lessinfo:not(:first-child)::after {
+.lessinfoInc {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: rgba(141, 146, 154, 1);
+  position: relative;
+}
+
+.lessinfo:not(:last-child)::after,
+.lessinfoInc::after {
   content: "";
   position: absolute;
   top: 0;
-  right: calc(100% + 6px);
+  left: calc(100% + 6px);
   width: 1px;
   height: 100%;
   background-color: rgba(218, 221, 225, 1);
@@ -88,4 +104,10 @@
   padding: 12px 97px;
   cursor: pointer;
   white-space: nowrap;
+  transition: background-color 0.3s;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: rgba(11, 68, 205, 1);
 }

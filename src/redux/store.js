@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import carsReducer from "./cars/carsSlise";
+import carsReducer from "./cars/carsSlice";
 import bookingReducer from "./booking/bookingSlice";
+import filtersReducer from "./filters/filtersSlice";
 // import favoritesReducer from "./favoritesSlice";
 
 const store = configureStore({
   reducer: {
     cars: carsReducer,
     booking: bookingReducer,
+    filters: filtersReducer,
     // favorites: favoritesReducer,
   },
 });

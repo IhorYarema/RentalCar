@@ -1,4 +1,5 @@
 import css from "./CarCard.module.css";
+import { useNavigate } from "react-router-dom";
 
 const CarCard = ({ car }) => {
   const {
@@ -16,6 +17,12 @@ const CarCard = ({ car }) => {
     ? address.split(",").map((part) => part.trim())
     : ["", "", ""];
 
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/catalog/${car.id}`);
+  };
+
   return (
     <div className={css.cardContainer}>
       <div className={css.imgInfoCont}>
@@ -25,7 +32,7 @@ const CarCard = ({ car }) => {
             className={css.heartIcon}
             width="16"
             height="16"
-            viewBox="0 0 34 32" /* залишається оригінальний viewBox для пропорцій */
+            viewBox="0 0 34 32"
           >
             <path
               fill="#f2f4f7"
@@ -42,15 +49,21 @@ const CarCard = ({ car }) => {
         </div>
 
         <div className={css.lessInfoBlock}>
-          <p className={css.lessinfo}>{city}</p>
-          <p className={css.lessinfo}>{country}</p>
-          <p className={css.lessinfo}>{rentalCompany}</p>
-          <p className={css.lessinfo}>{type}</p>
-          <p className={css.lessinfo}>{mileage + " km"}</p>
+          <div className={css.firstpart}>
+            <p className={css.lessinfo}>{city}</p>
+            <p className={css.lessinfo}>{country}</p>
+            <p className={css.lessinfoInc}>{rentalCompany}</p>
+          </div>
+          <div className={css.secondpart}>
+            <p className={css.lessinfo}>{type}</p>
+            <p className={css.lessinfo}>{mileage + " km"}</p>
+          </div>
         </div>
       </div>
 
-      <button className={css.btn}>Read more</button>
+      <button onClick={handleClick} className={css.btn}>
+        Read more
+      </button>
     </div>
   );
 };

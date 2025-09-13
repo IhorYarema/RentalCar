@@ -13,15 +13,12 @@ export const getCars = async ({
   mileageFrom,
   mileageTo,
 }) => {
-  const params = {
-    page,
-    limit,
-  };
+  const params = { page, limit };
 
   if (brand) params.brand = brand;
   if (price) params.price = price;
-  if (mileageFrom) params.mileageFrom = mileageFrom;
-  if (mileageTo) params.mileageTo = mileageTo;
+  if (mileageFrom) params.mileageFrom = Number(mileageFrom);
+  if (mileageTo) params.mileageTo = Number(mileageTo);
 
   const { data } = await instance.get("/cars", { params });
   return data;
@@ -35,6 +32,13 @@ export const getCarById = async (id) => {
 
 // Забронювати авто
 export const bookCar = async (id, formData) => {
-  const { data } = await instance.post(`/cars/${id}/book`, formData);
-  return data;
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        success: true,
+        message: "Booking successful",
+        booking: { id, ...formData },
+      });
+    }, 1000);
+  });
 };
