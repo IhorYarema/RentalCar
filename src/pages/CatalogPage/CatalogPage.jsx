@@ -24,8 +24,21 @@ export default function HomePage() {
     dispatch(fetchCars({ page: 1, limit: 12 }));
   }, [dispatch]);
 
+  // const handleSearch = () => {
+  //   dispatch(fetchCars({ page: 1, limit: 12, ...filters }));
+  // };
   const handleSearch = () => {
-    dispatch(fetchCars({ page: 1, limit: 12, ...filters }));
+    const { brand, price, mileageFrom, mileageTo } = filters;
+
+    const params = {};
+
+    if (brand) params.brand = brand;
+    if (price) params.price = Number(price);
+    if (mileageFrom !== undefined && mileageFrom !== "")
+      params.mileageFrom = mileageFrom;
+    if (mileageTo !== undefined && mileageTo !== "")
+      params.mileageTo = mileageTo;
+    dispatch(fetchCars({ page: 1, limit: 12, ...params }));
   };
 
   if (loader) return <Loader />;

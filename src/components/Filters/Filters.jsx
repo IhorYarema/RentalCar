@@ -109,7 +109,9 @@ const Filters = ({ onSearch }) => {
             onChange={(e) =>
               handleChange(
                 "mileageFrom",
-                Number(e.target.value.replace(/,/g, ""))
+                e.target.value
+                  ? Number(e.target.value.replace(/,/g, ""))
+                  : undefined
               )
             }
             className={css.milInpFrom}
@@ -125,7 +127,9 @@ const Filters = ({ onSearch }) => {
             onChange={(e) =>
               handleChange(
                 "mileageTo",
-                Number(e.target.value.replace(/,/g, ""))
+                e.target.value
+                  ? Number(e.target.value.replace(/,/g, ""))
+                  : undefined
               )
             }
             className={css.milInpTo}

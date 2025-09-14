@@ -16,9 +16,10 @@ export const getCars = async ({
   const params = { page, limit };
 
   if (brand) params.brand = brand;
-  if (price) params.price = price;
-  if (mileageFrom) params.mileageFrom = Number(mileageFrom);
-  if (mileageTo) params.mileageTo = Number(mileageTo);
+  if (price != null && price !== "") params.rentalPrice = price;
+  if (mileageFrom != null && mileageFrom !== "")
+    params.minMileage = mileageFrom;
+  if (mileageTo != null && mileageTo !== "") params.maxMileage = mileageTo;
 
   const { data } = await instance.get("/cars", { params });
   return data;
