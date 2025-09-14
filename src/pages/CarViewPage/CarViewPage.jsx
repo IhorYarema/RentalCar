@@ -9,8 +9,10 @@ import {
 } from "../../redux/cars/selectors";
 import Loader from "../../components/Loader/Loader.jsx";
 import CarDetails from "../../components/CarDetails/CarDetails";
+import NotFoundPage from "../NotFoundPage/NotFoundPage";
+import ErrorBlock from "../../components/ErrorBlock/ErrorBlock";
 
-const RecipeViewPage = () => {
+const CarViewPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
@@ -26,10 +28,12 @@ const RecipeViewPage = () => {
   }, [dispatch, id]);
 
   if (isLoading) return <Loader />;
-  if (error) return <p>Error: {error}</p>;
-  if (!car) return <p>No car found</p>;
+
+  if (error) return <ErrorBlock error={error} id={id} />;
+
+  if (!car) return <NotFoundPage />;
 
   return <CarDetails car={car} />;
 };
 
-export default RecipeViewPage;
+export default CarViewPage;

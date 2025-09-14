@@ -1,0 +1,49 @@
+.notFoundWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  text-align: center;
+  background-color: #f8f9fa;
+  font-family: "Manrope", sans-serif;
+}
+
+.title {
+  font-size: 8rem;
+  margin: 0;
+  display: flex;
+  gap: 1rem;
+}
+
+.digit {
+  display: inline-block;
+  color: #3470ff;
+  transition: transform 0.3s ease;
+  cursor: default;
+}
+
+.digit:hover {
+  transform: rotate(20deg) translateY(-10px);
+}
+
+.message {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+  color: #333;
+}
+
+.homeLink {
+  font-size: 1rem;
+  color: #fff;
+  background-color: #3470ff;
+  text-decoration: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 6px;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.homeLink:hover {
+  background-color: #2456cc;
+  transform: scale(1.05);
+}

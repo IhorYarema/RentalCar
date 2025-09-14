@@ -1,0 +1,50 @@
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.errorWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 40px auto;
+  max-width: 400px;
+  text-align: center;
+
+  /* Анимация появления */
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.errorMessage {
+  font-size: 18px;
+  color: #d9534f;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.retryButton {
+  background-color: #3470ff;
+  color: #fff;
+  padding: 10px 24px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.retryButton:hover {
+  background-color: #1a4ed0;
+}

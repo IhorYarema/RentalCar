@@ -17,6 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const CatalogPage = lazy(() => import("./pages/CatalogPage/CatalogPage"));
 const CarViewPage = lazy(() => import("./pages/CarViewPage/CarViewPage"));
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage/NotFoundPage"));
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/catalog" element={<CatalogPage />} />
             <Route path="/catalog/:id" element={<CarViewPage />} />
-            {/* <Route path="*" element={<NotFound />} /> */}
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
       </div>
