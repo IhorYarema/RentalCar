@@ -5,6 +5,7 @@ import {
   toggleFavorite,
   selectFavoritesIds,
 } from "../../redux/favorites/favoritesSlice";
+import { formatMileageSpace } from "../../utils/formatMileage";
 
 const CarCard = ({ car }) => {
   const {
@@ -82,7 +83,7 @@ const CarCard = ({ car }) => {
           </div>
           <div className={css.secondpart}>
             <p className={css.lessinfo}>{type}</p>
-            <p className={css.lessinfo}>{mileage + " km"}</p>
+            <p className={css.lessinfo}>{formatMileageSpace(car.mileage)}</p>
           </div>
         </div>
       </div>

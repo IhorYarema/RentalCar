@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilterField, fetchBrands } from "../../redux/filters/filtersSlice";
 import css from "./Filters.module.css";
-import Select from "react-select";
+import Select, { components } from "react-select";
 import { formatMileage } from "../../utils/formatMileage";
 
 const Filters = ({ onSearch }) => {
@@ -11,11 +11,36 @@ const Filters = ({ onSearch }) => {
   const { brand, price, mileageFrom, mileageTo, brandsOptions, loadingBrands } =
     filters;
 
-  // Для селекта ціни
-  const priceOptions = [30, 40, 50, 60, 70, 80].map((p) => ({
-    value: p,
-    label: p,
-  }));
+  // Стрілка для селекторів
+  const CustomDropdownIndicator = (props) => {
+    const { menuIsOpen } = props.selectProps;
+    return (
+      <components.DropdownIndicator {...props}>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 34 32"
+          aria-hidden="true"
+          className={css.svgArrow}
+          style={{
+            transform: menuIsOpen ? "rotate(180deg)" : "rotate(0deg)",
+            transition: "transform 0.2s ease",
+          }}
+        >
+          <use href="/icons.svg#icon-arrow" />
+        </svg>
+      </components.DropdownIndicator>
+    );
+  };
+
+  // Для значення селекту цін
+  const CustomSingleValue = ({ ...props }) => {
+    return (
+      <components.SingleValue {...props}>
+        To ${props.data.value}
+      </components.SingleValue>
+    );
+  };
 
   useEffect(() => {
     dispatch(fetchBrands());
@@ -30,48 +55,47 @@ const Filters = ({ onSearch }) => {
       {/* Бренд */}
       <label className={css.label}>
         Car brand
-        <select
-          value={brand}
-          onChange={(e) => handleChange("brand", e.target.value)}
-          className={css.brandSel}
-          disabled={loadingBrands}
-        >
-          <option value="">Choose a brand</option>
-          {brandsOptions.map((b) => (
-            <option key={b} value={b}>
-              {b}
-            </option>
-          ))}
-        </select>
-      </label>
-      {/* Цена */}
-      {/* <label className={css.label}>
-        {" "}
-        Price/ 1 hour
         <Select
-          value={
-            priceOptions.find((opt) => opt.value === Number(price)) || null
+          value={brand ? { value: brand, label: brand } : null}
+          onChange={(option) =>
+            handleChange("brand", option ? option.value : "")
           }
-          onChange={(option) => handleChange("price", option.value)}
-          options={priceOptions}
-          placeholder="Choose a price"
-          classNamePrefix="priceSel"
+          options={brandsOptions.map((b) => ({ value: b, label: b }))}
+          isDisabled={loadingBrands}
+          className={css.reactSelect} // зовнішній контейнер
+          classNamePrefix="react-select" // префікс для піделементів
+          placeholder="Choose a brand"
+          isSearchable={false}
+          components={{
+            DropdownIndicator: CustomDropdownIndicator,
+            IndicatorSeparator: () => null,
+          }}
         />
-      </label> */}
+      </label>
+
+      {/* Цена */}
       <label className={css.label}>
         Price/ 1 hour
-        <select
-          value={price}
-          onChange={(e) => handleChange("price", e.target.value)}
-          className={css.priceSel}
-        >
-          <option value="">Choose a price</option>
-          {[30, 40, 50, 60, 70, 80].map((p) => (
-            <option key={p} value={p}>
-              {p}
-            </option>
-          ))}
-        </select>
+        <Select
+          value={price ? { value: price, label: price } : null}
+          onChange={(option) =>
+            handleChange("price", option ? option.value : "")
+          }
+          options={[30, 40, 50, 60, 70, 80].map((p) => ({
+            value: p,
+            label: p,
+          }))}
+          isDisabled={false}
+          className={css.reactSelect}
+          classNamePrefix="react-select"
+          placeholder="Choose a price"
+          isSearchable={false}
+          components={{
+            DropdownIndicator: CustomDropdownIndicator,
+            IndicatorSeparator: () => null,
+            SingleValue: CustomSingleValue,
+          }}
+        />
       </label>
       {/* Пробег */}
       <div className={css.mil}>

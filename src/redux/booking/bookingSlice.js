@@ -5,13 +5,20 @@ export const bookCarThunk = createAsyncThunk(
   "booking/bookCar",
   async ({ id, formData }, { rejectWithValue }) => {
     try {
-      return await bookCar(id, formData); // тепер завжди успішно
+      const response = await bookCar(id, formData);
+      const booking = {
+        ...response.booking,
+        bookingDate: response.booking.bookingDate
+          ? new Date(response.booking.bookingDate).toISOString()
+          : "",
+      };
+
+      return { ...response, booking };
     } catch (error) {
       return rejectWithValue(error.message || "Booking failed");
     }
   }
 );
-
 const initialState = {
   formData: {
     name: "",
@@ -44,7 +51,14 @@ const bookingSlice = createSlice({
       .addCase(bookCarThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.formData = action.payload.booking;
+        const booking = action.payload.booking;
+
+        state.formData = {
+          ...booking,
+          bookingDate: booking.bookingDate
+            ? new Date(booking.bookingDate).toISOString()
+            : "",
+        };
       })
       .addCase(bookCarThunk.rejected, (state, action) => {
         state.loading = false;

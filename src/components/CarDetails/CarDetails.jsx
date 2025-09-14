@@ -1,5 +1,6 @@
 import BookForm from "../BookForm/BookForm";
 import css from "./CarDetails.module.css";
+import { formatMileageSpace } from "../../utils/formatMileage";
 
 const CarDetails = ({ car }) => {
   let imgId = "";
@@ -33,7 +34,9 @@ const CarDetails = ({ car }) => {
               <use href="/icons.svg#icon-location" />
             </svg>
             <p className={css.mainUpperText}>{city + ", " + country}</p>
-            <p className={css.mainUpperText}>{"Mileage: " + car.mileage}</p>
+            <p className={css.mainUpperText}>
+              {"Mileage: " + formatMileageSpace(car.mileage)}
+            </p>
           </div>
           <h2 className={css.price}>{"$" + car.rentalPrice}</h2>
           <p className={css.mainText}>{car.description}</p>

@@ -9,84 +9,60 @@
   color: rgba(16, 24, 40, 1);
 }
 
-.brandSel {
-  background-color: rgba(247, 247, 247, 1);
-  display: flex;
-  gap: 32px;
-  border: none;
-  border-radius: 12px;
-  padding: 12px 16px;
-  width: 204px;
-  height: 44px;
-  box-sizing: border-box;
-  font-family: Manrope;
+/* Селектор брендів */
+
+/* Щоб не було СВГ сердечка */
+:global(.react-select__menu) {
+  z-index: 9999 !important;
+  position: absolute !important;
+}
+/* Контейнер селекту всередині твого компонента */
+:global(.react-select__control) {
+  border-radius: 12px !important;
+  border: none !important;
+  height: 44px !important;
+  width: 204px !important;
+  background-color: rgba(247, 247, 247, 1) !important;
+  box-shadow: none !important;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  justify-content: space-between !important;
+  cursor: pointer !important;
+  font-family: "Manrope", "sans-sarif";
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;
   margin-top: 8px;
-  appearance: none;
-  cursor: pointer;
 }
 
-.priceSel {
-  background-color: rgba(247, 247, 247, 1);
-  display: flex;
-  gap: 32px;
-  border: none;
-  border-radius: 12px;
-  padding: 12px 16px;
-  width: 196px;
-  height: 44px;
-  box-sizing: border-box;
-  font-family: Manrope;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 20px;
-  margin-top: 8px;
-  appearance: none;
-  cursor: pointer;
+/* Вибране значення */
+:global(.react-select__single-value) {
+  color: rgba(16, 24, 40, 1);
 }
 
-/* :global(.priceSel__control) {
-  width: 196px;
-  height: 44px;
-  gap: 32px;
-  border-radius: 12px;
-  padding: 12px 16px;
-  background-color: rgba(247, 247, 247, 1);
-  border: none;
-  box-sizing: border-box;
-  font-family: "Manrope", sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 20px;
-  cursor: pointer;
+:global(.react-select__placeholder) {
+  color: rgba(16, 24, 40, 1) !important;
 }
 
-:global(.priceSel__single-value),
-:global(.priceSel__placeholder) {
-  font-family: "Manrope", sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  color: #101828;
-}
-
-:global(.priceSel__menu) {
-  border: 1px solid #f7f7f7;
-  border-radius: 12px;
-  box-shadow: 0px 4px 36px rgba(0, 0, 0, 0.02);
-} */
-
-.priceSel option {
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 20px;
-  background: rgba(255, 255, 255, 1);
+/* Опції у списку */
+:global(.react-select__option) {
+  background-color: rgba(255, 255, 255, 1);
   color: rgba(141, 146, 154, 1);
-  font-size: 16px;
-  border: 1px solid rgba(247, 247, 247, 1);
-  border-radius: 12px;
   box-shadow: 0px 4px 36px 0px rgba(0, 0, 0, 0.02);
+  font-weight: 500 !important;
+  font-size: 16px !important;
+  line-height: 20px !important;
+}
+
+/* Вибрана опція */
+:global(.react-select__option.react-select__option--is-selected) {
+  color: rgba(16, 24, 40, 1);
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.svgArrow {
+  color: rgba(16, 24, 40, 1);
+  fill: rgba(16, 24, 40, 1);
 }
 
 .mil {

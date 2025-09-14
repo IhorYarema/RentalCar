@@ -10,6 +10,7 @@ import {
 import { fetchCars } from "../../redux/cars/carsSlice";
 import Filters from "../../components/Filters/Filters";
 import CarsList from "../../components/CarsList/CarsList";
+import Loader from "../../components/Loader/Loader";
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -27,18 +28,19 @@ export default function HomePage() {
     dispatch(fetchCars({ page: 1, limit: 12, ...filters }));
   };
 
-  if (loader) return <p>Loading...</p>;
+  if (loader) return <Loader />;
 
   return (
     <section className={css.catalogSec}>
       <div className={css.container}>
-        <Filters onSearch={handleSearch} />
+        <Filters onSearch={handleSearch} className={css.filters} />
 
         <CarsList
           cars={cars}
           totalPages={totalPages}
           currentPage={currentPage}
           fetchCars={fetchCars}
+          className={css.carsList}
         />
       </div>
     </section>

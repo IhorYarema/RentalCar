@@ -25,9 +25,6 @@ const RecipeViewPage = () => {
     }
   }, [dispatch, id]);
 
-  //   if (isLoading) return <Loader />;
-
-  //   if (error?.status === 404) return <NotFound />;
   if (isLoading) return <Loader />;
   if (error) return <p>Error: {error}</p>;
   if (!car) return <p>No car found</p>;
