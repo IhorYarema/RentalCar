@@ -34,6 +34,7 @@ const Calendar = ({ selectedDate, onChange, placeholder = "Booking date" }) => {
             <button
               onClick={decreaseMonth}
               disabled={prevMonthButtonDisabled}
+              type="button"
               style={{
                 color: "rgba(52, 112, 255, 1)",
                 border: "none",
@@ -54,6 +55,7 @@ const Calendar = ({ selectedDate, onChange, placeholder = "Booking date" }) => {
               {date.toLocaleString("en-US", { month: "long", year: "numeric" })}
             </span>
             <button
+              type="button"
               onClick={increaseMonth}
               disabled={nextMonthButtonDisabled}
               style={{

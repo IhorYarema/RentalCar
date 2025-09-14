@@ -1,6 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setFilterField, fetchBrands } from "../../redux/filters/filtersSlice";
+import {
+  setFilterField,
+  fetchBrands,
+  fetchPrices,
+} from "../../redux/filters/filtersSlice";
 import css from "./Filters.module.css";
 import Select, { components } from "react-select";
 import { formatMileage } from "../../utils/formatMileage";
@@ -8,8 +12,16 @@ import { formatMileage } from "../../utils/formatMileage";
 const Filters = ({ onSearch }) => {
   const dispatch = useDispatch();
   const filters = useSelector((state) => state.filters);
-  const { brand, price, mileageFrom, mileageTo, brandsOptions, loadingBrands } =
-    filters;
+  const {
+    brand,
+    price,
+    mileageFrom,
+    mileageTo,
+    brandsOptions,
+    loadingBrands,
+    pricesOptions,
+    loadingPrices,
+  } = filters;
 
   // Стрілка для селекторів
   const CustomDropdownIndicator = (props) => {
@@ -44,6 +56,7 @@ const Filters = ({ onSearch }) => {
 
   useEffect(() => {
     dispatch(fetchBrands());
+    dispatch(fetchPrices());
   }, [dispatch]);
 
   const handleChange = (field, value) => {
@@ -81,10 +94,7 @@ const Filters = ({ onSearch }) => {
           onChange={(option) =>
             handleChange("price", option ? option.value : "")
           }
-          options={[30, 40, 50, 60, 70, 80].map((p) => ({
-            value: p,
-            label: p,
-          }))}
+          options={pricesOptions.map((p) => ({ value: p, label: p }))}
           isDisabled={false}
           className={css.reactSelect}
           classNamePrefix="react-select"

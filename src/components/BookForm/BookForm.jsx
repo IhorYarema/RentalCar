@@ -43,9 +43,18 @@ const BookForm = ({ carId }) => {
       }}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
+      validateOnBlur={false}
+      validateOnChange={false}
     >
-      {({ errors, touched, isSubmitting }) => {
-        useFormikToastErrors(errors, touched);
+      {({
+        values,
+        setFieldValue,
+        errors,
+        touched,
+        isSubmitting,
+        submitCount,
+      }) => {
+        useFormikToastErrors(errors, touched, submitCount);
         return (
           <Form className={css.form}>
             <div className={css.titles}>
@@ -74,16 +83,13 @@ const BookForm = ({ carId }) => {
               </div>
 
               <div className={css.inputDiv}>
-                <Field name="bookingDate" className={css.input}>
-                  {({ field, form }) => (
-                    <Calendar
-                      selectedDate={field.value ? new Date(field.value) : null}
-                      onChange={(date) =>
-                        form.setFieldValue("bookingDate", date)
-                      }
-                    />
-                  )}
-                </Field>
+                <Calendar
+                  selectedDate={
+                    values.bookingDate ? new Date(values.bookingDate) : null
+                  }
+                  onChange={(date) => setFieldValue("bookingDate", date)}
+                  placeholder="Booking date"
+                />
               </div>
 
               <div className={`${css.inputDiv} ${css["last-inputDiv"]}`}>

@@ -1,12 +1,60 @@
-# React + Vite
+# Project name
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Rental Car
 
-Currently, two official plugins are available:
+## Short Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project allows users to book cars online. Users can choose a booking date, leave a comment and submit the form, and also select favorite cars that will be saved at checkout. A filter has been created for easy searching.
 
-## Expanding the ESLint configuration
+## Key features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Car booking via interactive form
+- Date selection via calendar
+- Form validation with error messages
+- Display messages about successful booking
+- Redux support for state management
+- Filter by price, brand, and mileage range
+
+## Using components
+
+BookForm.jsx — main booking form. Uses Formik and Yup for validation.
+
+Calendar.jsx — calendar component for date selection. Works with Formik via setFieldValue.
+
+Filters.jsx — filter component, for filtering by brand, price, mileage. Used on the catalog page.
+
+Loader.jsx — displays a loading indicator during submission.
+
+useFormikToastErrors.js — hook for displaying form errors via toast messages.
+
+submitBooking.js — utility for form submission and integration with Redux.
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/car-booking-app.git
+   ```
+2. Go to the project directory:
+
+   cd car-booking-app
+
+3. Install dependencies:
+
+   npm install
+
+## Using
+
+Start the project:
+
+npm start
+
+Open in browser: http://localhost:3000
+
+## Author
+
+Name: Ihor Yarema
+
+Contacts: u96ok69@gmail.com
+
+GitHub: [IhorYarema] (https://github.com/IhorYarema)
