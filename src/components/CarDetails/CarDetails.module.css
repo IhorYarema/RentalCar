@@ -58,6 +58,7 @@ ul {
   width: 16px;
   height: 16px;
   color: currentColor;
+  fill: currentColor;
 }
 
 .checkIcon {
@@ -107,4 +108,9 @@ ul {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.rentItem {
+  display: flex;
+  align-items: center;
 }

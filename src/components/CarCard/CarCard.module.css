@@ -26,10 +26,23 @@
 .heartIcon {
   width: 16px;
   height: 16px;
-  position: absolute;
+  position: static;
   top: 16px;
   right: 16px;
   cursor: pointer;
+  z-index: 2;
+}
+
+.heartBtn {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   z-index: 2;
 }
 

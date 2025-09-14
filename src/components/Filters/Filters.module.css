@@ -19,6 +19,13 @@
   width: 204px;
   height: 44px;
   box-sizing: border-box;
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  margin-top: 8px;
+  appearance: none;
+  cursor: pointer;
 }
 
 .priceSel {
@@ -31,11 +38,65 @@
   width: 196px;
   height: 44px;
   box-sizing: border-box;
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  margin-top: 8px;
+  appearance: none;
+  cursor: pointer;
 }
 
-.milInp {
+/* :global(.priceSel__control) {
+  width: 196px;
+  height: 44px;
+  gap: 32px;
+  border-radius: 12px;
+  padding: 12px 16px;
+  background-color: rgba(247, 247, 247, 1);
+  border: none;
   box-sizing: border-box;
-  padding-left: 24px;
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+:global(.priceSel__single-value),
+:global(.priceSel__placeholder) {
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #101828;
+}
+
+:global(.priceSel__menu) {
+  border: 1px solid #f7f7f7;
+  border-radius: 12px;
+  box-shadow: 0px 4px 36px rgba(0, 0, 0, 0.02);
+} */
+
+.priceSel option {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  background: rgba(255, 255, 255, 1);
+  color: rgba(141, 146, 154, 1);
+  font-size: 16px;
+  border: 1px solid rgba(247, 247, 247, 1);
+  border-radius: 12px;
+  box-shadow: 0px 4px 36px 0px rgba(0, 0, 0, 0.02);
+}
+
+.mil {
+  display: flex;
+  align-items: flex-end;
+}
+
+.milInpFrom {
+  box-sizing: border-box;
+  padding-left: 66px;
   padding-bottom: 12px;
   padding-top: 12px;
   width: 160px;
@@ -45,68 +106,59 @@
   border-right: 1px solid rgba(218, 221, 225, 1);
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  margin-top: 8px;
+  appearance: none;
+  cursor: pointer;
 }
 
-.milInp:last-child {
-  border-right: none;
+.milInpTo {
+  box-sizing: border-box;
+  padding-bottom: 12px;
+  padding-top: 12px;
+  width: 160px;
+  height: 44px;
+  background-color: rgba(247, 247, 247, 1);
+  border: none;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
-}
-
-/* .inputWrapper {
-  position: relative;
-  display: inline-block;
-  margin-right: 10px;
-}
-
-.milInp:placeholder-shown .prefix {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  border: 0;
-  padding: 0;
-
-  white-space: nowrap;
-  clip-path: inset(100%);
-  clip: rect(0 0 0 0);
-  overflow: hidden;
-}
-
-.prefix {
-  position: absolute;
-  left: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #555;
-  pointer-events: none;
-} */
-
-.mil {
-  display: flex;
+  padding-left: 46px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  appearance: none;
+  cursor: pointer;
 }
 
 .inputWrapper {
   position: relative;
   display: inline-block;
-  flex: 1;
+  /* margin-right: 10px; */
 }
 
-.prefix {
+.inputWrapper:last-child {
+  margin-top: 20px;
+}
+
+.prefixFrom {
   position: absolute;
-  left: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #555;
-  pointer-events: none; /* текст не кликабельный */
+  left: 24px;
+  top: 52%;
+  color: rgba(16, 24, 40, 1);
+  pointer-events: none;
 }
 
-.milInp {
-  width: 100%;
-  padding-left: 40px; /* место для префикса */
-  box-sizing: border-box;
+.prefixTo {
+  position: absolute;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-51%);
+  color: rgba(16, 24, 40, 1);
+  pointer-events: none;
 }
 
 .btn {
@@ -124,9 +176,18 @@
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
+  margin-top: 26px;
+  cursor: pointer;
 }
 
 .btn:hover,
 .btn:focus {
   background-color: rgba(11, 68, 205, 1);
+}
+
+.label {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: rgba(141, 146, 154, 1);
 }
