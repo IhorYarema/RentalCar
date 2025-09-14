@@ -6,8 +6,13 @@ import Loader from "./components/Loader/Loader";
 import "@fontsource/manrope";
 import "@fontsource/manrope/500.css";
 import "@fontsource/manrope/600.css";
+import "@fontsource/inter";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/600.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+<link rel="icon" href="/favicon.ico" type="image/x-icon" />;
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const CatalogPage = lazy(() => import("./pages/CatalogPage/CatalogPage"));
