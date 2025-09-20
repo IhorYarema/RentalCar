@@ -64,7 +64,11 @@ const carsSlice = createSlice({
         if (page === 1) {
           state.items = cars;
         } else {
-          state.items = [...state.items, ...cars];
+          cars.forEach((car) => {
+            if (!state.items.find((c) => c.id === car.id)) {
+              state.items.push(car);
+            }
+          });
         }
         state.currentPage = page;
         state.totalPages = totalPages;

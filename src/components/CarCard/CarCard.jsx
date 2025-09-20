@@ -6,8 +6,18 @@ import {
   selectFavoritesIds,
 } from "../../redux/favorites/favoritesSlice";
 import { formatMileageSpace } from "../../utils/formatMileage";
+import { memo } from "react";
+import { selectCarById } from "../../redux/cars/selectors";
 
-const CarCard = ({ car }) => {
+const CarCard = memo(({ id }) => {
+  const car = useSelector((state) => selectCarById(state, id));
+  const dispatch = useDispatch();
+  const favIds = useSelector(selectFavoritesIds);
+  const navigate = useNavigate();
+
+  // 🔒 якщо car ще не підвантажений → нічого не рендеримо
+  if (!car) return null;
+
   const {
     brand,
     model,
@@ -23,15 +33,11 @@ const CarCard = ({ car }) => {
     ? address.split(",").map((part) => part.trim())
     : ["", "", ""];
 
-  const navigate = useNavigate();
+  const isFav = favIds.includes(car.id);
 
   const handleClick = () => {
     navigate(`/catalog/${car.id}`);
   };
-
-  const dispatch = useDispatch();
-  const favIds = useSelector(selectFavoritesIds);
-  const isFav = favIds.includes(car.id);
 
   const onToggle = (e) => {
     e.stopPropagation();
@@ -83,7 +89,7 @@ const CarCard = ({ car }) => {
           </div>
           <div className={css.secondpart}>
             <p className={css.lessinfo}>{type}</p>
-            <p className={css.lessinfo}>{formatMileageSpace(car.mileage)}</p>
+            <p className={css.lessinfo}>{formatMileageSpace(mileage)}</p>
           </div>
         </div>
       </div>
@@ -93,6 +99,6 @@ const CarCard = ({ car }) => {
       </button>
     </div>
   );
-};
+});
 
 export default CarCard;

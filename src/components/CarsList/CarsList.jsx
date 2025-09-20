@@ -36,7 +36,7 @@ const CarsList = ({
           {Array.isArray(cars) &&
             cars.map((car) => (
               <li key={car.id} className={css.car}>
-                <CarCard car={car} />
+                <CarCard id={car.id} />
               </li>
             ))}
         </ul>
