@@ -1,27 +1,24 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { setFilterField } from "../../redux/filters/filtersSlice";
 import {
-  setFilterField,
-  fetchBrands,
-  fetchPrices,
-} from "../../redux/filters/filtersSlice";
+  fetchBrandsOptions,
+  fetchPricesOptions,
+} from "../../redux/filterOptions/filtersOptionsSlice";
 import css from "./Filters.module.css";
 import Select, { components } from "react-select";
 import { formatMileage } from "../../utils/formatMileage";
 
 const Filters = ({ onSearch }) => {
   const dispatch = useDispatch();
+
+  // Підключаємо значення фільтрів
   const filters = useSelector((state) => state.filters);
-  const {
-    brand,
-    price,
-    mileageFrom,
-    mileageTo,
-    brandsOptions,
-    loadingBrands,
-    pricesOptions,
-    loadingPrices,
-  } = filters;
+  const { brand, price, mileageFrom, mileageTo } = filters;
+
+  // Підключаємо опції селектів
+  const options = useSelector((state) => state.filtersOptions);
+  const { brands, prices, loadingBrands, loadingPrices } = options;
 
   // Стрілка для селекторів
   const CustomDropdownIndicator = (props) => {
@@ -54,9 +51,10 @@ const Filters = ({ onSearch }) => {
     );
   };
 
+  // Підтягуємо опції при старті
   useEffect(() => {
-    dispatch(fetchBrands());
-    dispatch(fetchPrices());
+    dispatch(fetchBrandsOptions());
+    dispatch(fetchPricesOptions());
   }, [dispatch]);
 
   const handleChange = (field, value) => {
@@ -73,7 +71,7 @@ const Filters = ({ onSearch }) => {
           onChange={(option) =>
             handleChange("brand", option ? option.value : "")
           }
-          options={brandsOptions.map((b) => ({ value: b, label: b }))}
+          options={brands.map((b) => ({ value: b, label: b }))}
           isDisabled={loadingBrands}
           className={css.reactSelect} // зовнішній контейнер
           classNamePrefix="react-select" // префікс для піделементів
@@ -94,8 +92,8 @@ const Filters = ({ onSearch }) => {
           onChange={(option) =>
             handleChange("price", option ? option.value : "")
           }
-          options={pricesOptions.map((p) => ({ value: p, label: p }))}
-          isDisabled={false}
+          options={prices.map((p) => ({ value: p, label: p }))}
+          isDisabled={loadingPrices}
           className={css.reactSelect}
           classNamePrefix="react-select"
           placeholder="Choose a price"
@@ -107,6 +105,7 @@ const Filters = ({ onSearch }) => {
           }}
         />
       </label>
+
       {/* Пробег */}
       <div className={css.mil}>
         {/* Поле "From" */}
@@ -146,6 +145,7 @@ const Filters = ({ onSearch }) => {
           />
         </div>
       </div>
+
       <button onClick={onSearch} className={css.btn}>
         Search
       </button>

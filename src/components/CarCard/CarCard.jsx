@@ -1,10 +1,8 @@
 import css from "./CarCard.module.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  toggleFavorite,
-  selectFavoritesIds,
-} from "../../redux/favorites/favoritesSlice";
+import { toggleFavorite } from "../../redux/favorites/favoritesSlice";
+import { selectFavoritesIds } from "../../redux/favorites/selectors";
 import { formatMileageSpace } from "../../utils/formatMileage";
 import { memo } from "react";
 import { selectCarById } from "../../redux/cars/selectors";

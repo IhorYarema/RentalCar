@@ -1,32 +1,31 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { bookCar } from "../../api/carsApi";
 
+// thunk
 export const bookCarThunk = createAsyncThunk(
   "booking/bookCar",
   async ({ id, formData }, { rejectWithValue }) => {
     try {
       const response = await bookCar(id, formData);
-      const booking = {
-        ...response.booking,
-        bookingDate: response.booking.bookingDate
-          ? new Date(response.booking.bookingDate).toISOString()
-          : "",
-      };
 
-      return { ...response, booking };
+      return {
+        booking: {
+          ...response.booking,
+          bookingDate: response.booking.bookingDate
+            ? new Date(response.booking.bookingDate).toISOString()
+            : "",
+        },
+      };
     } catch (error) {
       return rejectWithValue(error.message || "Booking failed");
     }
   }
 );
+
+// state
 const initialState = {
-  formData: {
-    name: "",
-    email: "",
-    bookingDate: "",
-    comment: "",
-  },
-  success: false,
+  booking: null, // збережена бронь
+  success: false, // статус
   loading: false,
   error: null,
 };
@@ -38,7 +37,7 @@ const bookingSlice = createSlice({
     resetBooking: (state) => {
       state.success = false;
       state.error = null;
-      state.formData = initialState.formData;
+      state.booking = null;
     },
   },
   extraReducers: (builder) => {
@@ -51,14 +50,7 @@ const bookingSlice = createSlice({
       .addCase(bookCarThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        const booking = action.payload.booking;
-
-        state.formData = {
-          ...booking,
-          bookingDate: booking.bookingDate
-            ? new Date(booking.bookingDate).toISOString()
-            : "",
-        };
+        state.booking = action.payload.booking;
       })
       .addCase(bookCarThunk.rejected, (state, action) => {
         state.loading = false;

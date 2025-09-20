@@ -1,21 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getCars, getCarById } from "../../api/carsApi";
 
+// отримати список авто
 export const fetchCars = createAsyncThunk(
   "cars/fetchCars",
-  async (
-    { page = 1, limit = 12, brand, price, mileageFrom, mileageTo },
-    thunkAPI
-  ) => {
+  async ({ page = 1, limit = 12, ...filters }, thunkAPI) => {
     try {
-      const response = await getCars({
-        page,
-        limit,
-        brand,
-        price,
-        mileageFrom,
-        mileageTo,
-      });
+      const response = await getCars({ page, limit, ...filters });
       return { cars: response.cars, totalPages: response.totalPages, page };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -23,12 +14,12 @@ export const fetchCars = createAsyncThunk(
   }
 );
 
+// отримати конкретне авто
 export const fetchCarById = createAsyncThunk(
   "cars/fetchCarById",
   async (id, thunkAPI) => {
     try {
-      const response = await getCarById(id);
-      return response;
+      return await getCarById(id);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -41,9 +32,9 @@ const carsSlice = createSlice({
     items: [],
     currentPage: 1,
     totalPages: 0,
+    currentCar: null,
     loading: false,
     error: null,
-    currentCar: null,
   },
   reducers: {
     resetCars(state) {
@@ -54,7 +45,6 @@ const carsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // fetchCars
       .addCase(fetchCars.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -78,7 +68,6 @@ const carsSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      // fetchCarById
       .addCase(fetchCarById.pending, (state) => {
         state.loading = true;
         state.error = null;
