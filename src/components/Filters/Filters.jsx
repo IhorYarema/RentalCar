@@ -8,6 +8,7 @@ import {
 import css from "./Filters.module.css";
 import Select, { components } from "react-select";
 import { formatMileage } from "../../utils/formatMileage";
+import CustomDropdownIndicator from "../CustomDropdownIndicator/CustomDropdownIndicator";
 
 const Filters = ({ onSearch }) => {
   const dispatch = useDispatch();
@@ -21,26 +22,26 @@ const Filters = ({ onSearch }) => {
   const { brands, prices, loadingBrands, loadingPrices } = options;
 
   // Стрілка для селекторів
-  const CustomDropdownIndicator = (props) => {
-    const { menuIsOpen } = props.selectProps;
-    return (
-      <components.DropdownIndicator {...props}>
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 34 32"
-          aria-hidden="true"
-          className={css.svgArrow}
-          style={{
-            transform: menuIsOpen ? "rotate(180deg)" : "rotate(0deg)",
-            transition: "transform 0.2s ease",
-          }}
-        >
-          <use href="/icons.svg#icon-arrow" />
-        </svg>
-      </components.DropdownIndicator>
-    );
-  };
+  // const CustomDropdownIndicator = (props) => {
+  //   const { menuIsOpen } = props.selectProps;
+  //   return (
+  //     <components.DropdownIndicator {...props}>
+  //       <svg
+  //         width="16"
+  //         height="16"
+  //         viewBox="0 0 34 32"
+  //         aria-hidden="true"
+  //         className={css.svgArrow}
+  //         style={{
+  //           transform: menuIsOpen ? "rotate(180deg)" : "rotate(0deg)",
+  //           transition: "transform 0.2s ease",
+  //         }}
+  //       >
+  //         <use href="/icons.svg#icon-arrow" />
+  //       </svg>
+  //     </components.DropdownIndicator>
+  //   );
+  // };
 
   // Для значення селекту цін
   const CustomSingleValue = ({ ...props }) => {
