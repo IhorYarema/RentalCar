@@ -1,0 +1,20 @@
+.svgArrow {
+  display: block;
+  fill: currentColor;
+}
+
+.clearButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 14px;
+  line-height: 1;
+}
+.clearButton:hover {
+  color: rgba(52, 112, 255, 1);
+  border-radius: 4px;
+}

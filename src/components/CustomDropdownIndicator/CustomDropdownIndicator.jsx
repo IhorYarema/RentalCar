@@ -1,10 +1,18 @@
 import { components } from "react-select";
-import css from "./CustomDropdownIndicator.module.css";
+import css from "./CustomDropdownIndicator.module.css"; // можно свой css или Filters.module.css
 
 const CustomDropdownIndicator = (props) => {
-  const { menuIsOpen, selectProps } = props;
+  const { menuIsOpen, selectProps, innerProps } = props;
   const { value, onChange } = selectProps;
 
+  // handler для "хрестика": отменяем дефолтное поведение (открытие меню) и очищаем значение
+  const handleClearMouseDown = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (typeof onChange === "function") onChange(null);
+  };
+
+  // Если меню открыто — стрелка вверх
   if (menuIsOpen) {
     return (
       <components.DropdownIndicator {...props}>
@@ -14,6 +22,7 @@ const CustomDropdownIndicator = (props) => {
           viewBox="0 0 34 32"
           className={css.svgArrow}
           style={{ transform: "rotate(180deg)", transition: "transform 0.2s" }}
+          aria-hidden
         >
           <use href="/icons.svg#icon-arrow" />
         </svg>
@@ -21,6 +30,7 @@ const CustomDropdownIndicator = (props) => {
     );
   }
 
+  // Если нет значения — стрелка вниз
   if (!value) {
     return (
       <components.DropdownIndicator {...props}>
@@ -30,6 +40,7 @@ const CustomDropdownIndicator = (props) => {
           viewBox="0 0 34 32"
           className={css.svgArrow}
           style={{ transform: "rotate(0deg)", transition: "transform 0.2s" }}
+          aria-hidden
         >
           <use href="/icons.svg#icon-arrow" />
         </svg>
@@ -37,17 +48,20 @@ const CustomDropdownIndicator = (props) => {
     );
   }
 
-  // Опції закриті + є значення → хрестик
+  // Есть значение + меню закрыто → хрестик.
+  // Ключевая часть: перезаписываем innerProps.onMouseDown, чтобы предотвратить открытие меню.
+  const safeInnerProps = {
+    ...(innerProps || {}),
+    onMouseDown: handleClearMouseDown,
+  };
+
+  // Передаём изменённые innerProps в компонент, чтобы обработчик использовался внутри.
   return (
-    <components.DropdownIndicator {...props}>
-      <div
-        {...props.innerProps} // важливо передати innerProps
-        className={css.clearButton}
-        onClick={(e) => {
-          e.stopPropagation();
-          onChange(null); // очищаємо значення
-        }}
-      >
+    <components.DropdownIndicator
+      {...props}
+      innerProps={safeInnerProps} // <- перезапись обработчика
+    >
+      <div className={css.clearButton} aria-hidden>
         ✕
       </div>
     </components.DropdownIndicator>
